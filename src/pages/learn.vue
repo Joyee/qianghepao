@@ -42,7 +42,8 @@ export default {
   },
   methods: {
     goDetail(id){
-      this.$router.push({ path: `/learnDetail/${id}` });
+			var type = 2
+			this.$router.push({path: `/learnDetail/${type}/${id}`})
     }
   }
 }

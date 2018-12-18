@@ -21,7 +21,7 @@ export default {
     };
   },
   created: function () {
-      console.log("下载", this.info)
+      
   }
 }
 </script>

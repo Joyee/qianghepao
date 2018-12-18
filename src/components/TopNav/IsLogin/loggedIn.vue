@@ -1,6 +1,6 @@
 <template>
 	<div class="loggedIn">
-		<img  class="avatar">
+		<img :src="avatar" class="avatar">
 		<div>
 			<a href="javascript:;" @click="goSelfCenter">{{username}}</a>
 			<a href="javascript:;" @click="logout">退出</a>
@@ -22,7 +22,7 @@
 		methods: {
 			logout () {
 				this.$store.dispatch('logout').then(() => {
-					alert('已退出')
+					this.$router.push({ path: '/exchange' })
 				})
 			},
 			goSelfCenter() {
@@ -30,10 +30,10 @@
 			}
 		},
 		computed: {
-			...mapGetters(['username'])
+			...mapGetters(['username', 'avatar'])
 		},
 		mounted: function () {
-			console.log();
+			
 		}
 }
 </script>

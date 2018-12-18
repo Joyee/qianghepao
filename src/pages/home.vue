@@ -1,24 +1,13 @@
 <template>
     <div class="home">
-      <div class="main-wrap">
-        <div class="main">
-          <HeaderAd></HeaderAd>
-          <Sidebar></Sidebar>
-          <div class="container">
-            <router-view></router-view>
-            <router-link to="/exchange" class="back-to-home"><img src="../assets/images/icons/icon-back.png" alt=""><span>返回首页</span></router-link>
-          </div>
-          <FooterAd></FooterAd>
-          <div class="copyright">Copyright © 2016-2018  京ICP备17020276号-1  枪和炮 完整高效的币圈聚合平台  <router-link to="/about">关于枪和炮</router-link></div>
-        </div>
-        <tool></tool>
-      </div>
+      <HeaderAd></HeaderAd>
+      <router-view></router-view>
+      <FooterAd></FooterAd>
     </div>
 </template>
 <script>
 import HeaderAd from '@/components/HeaderAd'
 import FooterAd from '@/components/FooterAd'
-import Tool from '@/components/Tool'
 import Sidebar from '@/components/Sidebar'
 import {mapGetters} from 'vuex'
 
@@ -27,7 +16,6 @@ export default {
   components: {
     HeaderAd,
     FooterAd,
-    Tool,
     Sidebar
   },
   data () {

@@ -1,7 +1,7 @@
 <template>
     <div class="detail">
         <div class="title">
-            <h3>学习学习</h3>
+            <h3>学习详情</h3>
         </div>
         <div class="detail-container">
             <h2>{{data.title}}</h2>
@@ -23,7 +23,8 @@
 export default {
   name: "LearnDetail",
   props: {
-    "id": String
+    "id": String,
+		"type": Number
   },
   data () {
     return {
@@ -31,13 +32,23 @@ export default {
     };
   },
   mounted: function () {
-      this.$http.get('/api/learn/learnDetail?id=' + this.id).then(res => {
-          console.log(res)
-          if (res.data.code == 200) {
-              var data = res.data.data
-              this.data = data
-          }
-      })
+		if (this.type == 1) {
+			this.$http.get('/api/candy/candyDetail?id=' + this.id).then(res => {
+					console.log(res)
+					if (res.data.code == 200) {
+							var data = res.data.data
+							this.data = data
+					}
+			})
+		} else if (this.type == 2) {
+			this.$http.get('/api/learn/learnDetail?id=' + this.id).then(res => {
+					console.log(res)
+					if (res.data.code == 200) {
+							var data = res.data.data
+							this.data = data
+					}
+			})
+		}
   }
 }
 </script>

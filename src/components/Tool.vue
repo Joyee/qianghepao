@@ -23,7 +23,10 @@ export default {
     },
     backToTop () {
         scrollIt(0, 1500, this.transitionName, this.currentPageYOffset);
-    }
+    },
+		goFeedback () {
+			
+		}
   },
   created () {
       window.addEventListener('scroll', this.currentPageYOffset);

@@ -29,6 +29,7 @@ export default {
   },
   props: ["type"],
   created: function() {
+		console.log(typeof(this.type))
     this.$http.get("/api/exchange/exchangeList?type=" + this.type).then(res => {
       if (res.data.code == 200) {
         var lists = res.data.data.result;
@@ -42,6 +43,7 @@ export default {
   methods: {
     goDetail: function(id) {
       let _this = this
+			console.log(id)
       switch (_this.type) {
         case "1":  //交易所
           this.$router.push({ path: `/detail/${id}` }); 

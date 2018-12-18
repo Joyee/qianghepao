@@ -36,13 +36,22 @@
     methods: {
         submitBtn: function (event) {
           event.preventDefault();
-            this.$http.post('/api/complain/complainPost?name=' + this.name + '&mobile=' + this.mobile + '&uid=' + this.$store.gettter.id).then((response) => {
-
+            this.$http.post('/api/complain/complainPost', {
+							name: this.name,
+							mobile: this.mobile,
+							content: this.content,
+							user_id: this.id
+						}).then((response) => {
+							var data = response.data
+							if (data.code == 200) {
+								alert("提交成功")
+								this.$router.push({path: '/exchange'})
+							}
             })
         }
     },
     computed: {
-      // ...mapGetters(['id'])
+      ...mapGetters(['id'])
     }
   }
 </script>

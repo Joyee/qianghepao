@@ -3,21 +3,28 @@ import {login, logout,getUserInfo} from '../../../api/login'
 
 const state = {
 	user: localUser.get() || {
-		id: undefined,
+		id: "",
 		username: '',
-		avatar: ''
+		avatar:'',
+		mobile: '',
+		weixin: ''
 	},
 	login: localUser.get() !== '',
-	username:'',
-	avatar:''
+	id: "",
+	username: '',
+	avatar:'',
+	mobile: '',
+	weixin: ''
 }
 
 const getters = {
 	user: state => state.user,
 	login: state => state.login,
-	id: state => state.user.id,
+	id: state => state.id,
 	username: state => state.username,
-	avatar: state => state.avatar
+	avatar: state => state.avatar,
+	mobile: state => state.mobile,
+	weixin: state => state.weixin
 }
 
 const mutations = {
@@ -25,7 +32,7 @@ const mutations = {
 		state.login = loginState
 	},
 	SET_ID: (state, id) => {
-		state.user.id = id
+		state.id = id
 	},
 	SET_USERNAME: (state, username) => {
 		state.username = username
@@ -33,9 +40,15 @@ const mutations = {
 	SET_AVATAR: (state, avatar) => {
 		state.avatar = avatar
 	},
+	SET_MOBILE: (state, mobile) => {
+		state.mobile = mobile
+	},
+	SET_WEIXIN: (state, weixin) => {
+		state.weixin = weixin
+	},
 	LOGOUT_USER: state => {
 		state.user = {
-			id: undefined,
+			id: "",
 			username: '',
 			avatar: ''
 		}
@@ -52,7 +65,7 @@ const actions = {
 					localStorage.setItem('hasLogin', 1)
 					commit('SET_ID', result.data.id)
 					commit('SET_USERNAME', result.data.nickname)
-					commit('SET_AVATAR', result.data.avatar)
+					commit('SET_AVATAR', result.data.profile_photo)
 					commit('SET_LOGIN_STATE', true)
 					localUser.setWithTime(state.user)
 					resolve()
@@ -71,8 +84,9 @@ const actions = {
 				console.log(response)
 				var result = response.data
 				if (result.code == 200) {
-					commit('LOGOUT_USER')
+					commit('SET_LOGIN_STATE', false)
 					localUser.clear()
+					localStorage.removeItem('hasLogin')
 					resolve()
 				} else {
 					reject(result.msg)
@@ -86,7 +100,14 @@ const actions = {
 		return new Promise((resolve, reject) => {
 			getUserInfo().then(response => {
 				var data = response.data.data
+				commit('SET_ID', data.id)
 				commit('SET_USERNAME', data.nickname)
+				if (data.profile_photo == "") {
+					data.profile_photo = "/static/image/default_avatar.png"
+				}
+				commit('SET_AVATAR', data.profile_photo)
+				commit('SET_MOBILE', data.mobile)
+				commit('SET_WEIXIN', data.wechat)
 			})
 		})
 	}

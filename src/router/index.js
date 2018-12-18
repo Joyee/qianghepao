@@ -13,7 +13,8 @@ import Projectdetail from '@/pages/projectdetail'
 import About from '@/pages/about'
 import Feedback from '@/pages/feedback'
 import LearnDetail from '@/pages/learnDetail'
-import UserCenter from '@/pages/usercenter'
+// import UserCenter from '@/pages/usercenter'
+const usercenter = r => require.ensure([], () => r(require('../pages/userCenter')), 'usercenter')
 
 Vue.use(VueRouter)
 
@@ -66,7 +67,7 @@ const routes = [
 				props: true
 			},
 			{
-				path: '/learnDetail/:id',
+				path: '/learnDetail/:type/:id',
 				name: 'LearnDetail',
 				component: LearnDetail,
 				props: true,
@@ -80,16 +81,19 @@ const routes = [
 				path: '/feedback',
 				name: 'feedback',
 				component: Feedback,
-// 				meta: {
-// 					requireAuth: true  //添加该字段，表示进入这个路由需要登录
-// 				}
+				meta: {
+					requireAuth: true  //添加该字段，表示进入这个路由需要登录
+				}
 			},
-			{
-				path: '/usercenter',
-				name: 'usercenter',
-				component: UserCenter
-			}
 		]
+	},
+	{
+		path: '/usercenter',
+		name: 'usercenter',
+		component: usercenter,
+// 		meta: {
+// 			requireAuth: true  //添加该字段，表示进入这个路由需要登录
+// 		}
 	},
 	{
 		path: '/login',
